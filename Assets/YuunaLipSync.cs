@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 public class YuunaLipSync : MonoBehaviour
 {
     [Tooltip("口の開き具合の感度。声が小さければ上げる")]
-    public float sensitivity = 18f;
+    public float sensitivity = 13f;
 
     [Tooltip("口の動きの滑らかさ（大きいほど機敏）")]
     public float smoothing = 12f;
