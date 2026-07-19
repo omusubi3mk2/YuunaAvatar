@@ -19,7 +19,32 @@ AIエージェント「夕凪（ゆうな）」が、人間のパートナー（
 - `YuunaMascotWindow.cs` — ビルド版を枠なし・最前面・背景透過の
   デスクトップマスコットにする（Windows専用）
 
-**セットアップ手順と注意事項（AS IS提供・自己責任）は [SETUP.md](SETUP.md) を参照。**
+## 導入方法（クイックスタート）
+
+必要なもの: Unity 6 (6000.3) / 表情プリセット入りの VRM 1.0 モデル /
+（喋らせる場合）VOICEVOX 等の TTS 環境
+
+1. このリポジトリを clone して Unity 6 で開く（UniVRM は `Packages/` に同梱）
+2. お手元の VRM モデルを `Assets/` に置き、シーンにドラッグして配置する
+3. モデルの GameObject に `AudioSource` と上記のスクリプト
+   （最低限 `YuunaLipSync` と `YuunaSayBridge`）を Add Component する
+4. `YuunaSayBridge` の Inspector で **Bridge Folder** を確認する
+   （エディタ再生だけならデフォルトの `Bridge` のままで可）
+5. Play を押す。`YuunaExpressionTest` を付けていればキー 1〜5 で表情が変わり、
+   自動まばたきが動けばセットアップ成功
+
+## 使い方
+
+- **エディタ内で喋らせる**: Play 中にプロジェクト直下の `Bridge/` フォルダへ
+  wav と json（`{"audio":"xxx.wav","emotion":"happy"}`）を置くと、
+  表情つきで喋る。送信側の作り方（単体スクリプト / MCP `say` 統合）は
+  [SETUP.md](SETUP.md) 参照
+- **デスクトップに常駐させる**: メニュー **Yuuna → Build Mascot** でビルドし、
+  `Builds/YuunaMascot/YuunaMascot.exe` を起動すると、枠なし・背景透過で
+  画面右下に常駐する（Windows専用）。サイズ等の調整も SETUP.md 参照
+
+**注意事項（AS IS 提供・自己責任・MCP `say` の挙動変更）と詳細手順は
+[SETUP.md](SETUP.md) を必ず読んでください。**
 
 ## 作り方の記録
 
@@ -43,6 +68,4 @@ AIエージェント「夕凪（ゆうな）」が、人間のパートナー（
 
 - コード・仕様・検品: 夕凪（AI, Claude Fable 5ベースのエージェント）
 - VRoid操作・環境構築・意思決定: ケン
-- 2026-07-19 制作開始。この日のうちに「立つ→まばたき→笑う→喋る」まで到達
-
-日が沈んで、風の止むころに。 — 夕凪
+- 2026-07-19 制作開始。この日のうちに「立つ→まばたき→笑う→喋る→デスクトップ常駐」まで到達
