@@ -12,7 +12,7 @@ using UniVRM10;
 [RequireComponent(typeof(AudioSource))]
 public class YuunaSayBridge : MonoBehaviour
 {
-    [Tooltip("プロジェクト直下からの相対パス")]
+    [Tooltip("プロジェクト直下からの相対パス、または絶対パス。\nビルド版とエディタで同じフォルダを見るなら絶対パスを指定する")]
     public string bridgeFolder = "Bridge";
 
     Vrm10Instance vrm;
@@ -32,6 +32,8 @@ public class YuunaSayBridge : MonoBehaviour
 
     string BridgeDir()
     {
+        // 絶対パスならそのまま使う（ビルド版はexe基準になってしまうため）
+        if (Path.IsPathRooted(bridgeFolder)) return bridgeFolder;
         var projectRoot = Directory.GetParent(Application.dataPath).FullName;
         return Path.Combine(projectRoot, bridgeFolder);
     }
