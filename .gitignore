@@ -1,0 +1,25 @@
+# Unity standard
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+.vsconfig
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+.vs/
+.idea/
+crashlytics-build.properties
+
+# 夕凪のモデルと声は非公開（ライセンス: 作者のみ）
+*.vrm
+*.vrm.meta
+Assets/YuunaVoice/
+Assets/YuunaVoice.meta
