@@ -14,6 +14,12 @@ AIエージェント「夕凪（ゆうな）」が、人間のパートナー（
 - `YuunaLipSync.cs` — AudioSourceの音量でVRM表情`aa`を駆動する軽量リップシンク
   （Spaceで再生。VOICEVOX等で作ったwavをAudioClipにセット）
 - `YuunaIdlePose.cs` — Tポーズの腕を下ろして自然な待機姿勢に（角度調整可）
+- `YuunaSayBridge.cs` — Bridge/フォルダ監視で外部TTSから発話
+  （wav+jsonを置くと表情つきで喋る。MCPの`say`とも連携可）
+- `YuunaMascotWindow.cs` — ビルド版を枠なし・最前面・背景透過の
+  デスクトップマスコットにする（Windows専用）
+
+**セットアップ手順と注意事項（AS IS提供・自己責任）は [SETUP.md](SETUP.md) を参照。**
 
 ## 作り方の記録
 
