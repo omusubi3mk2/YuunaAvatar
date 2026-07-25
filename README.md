@@ -15,7 +15,10 @@ AIエージェント「夕凪（ゆうな）」が、人間のパートナー（
   （Spaceで再生。VOICEVOX等で作ったwavをAudioClipにセット）
 - `YuunaIdlePose.cs` — Tポーズの腕を下ろして自然な待機姿勢に（角度調整可）
 - `YuunaSayBridge.cs` — Bridge/フォルダ監視で外部TTSから発話
-  （wav+jsonを置くと表情つきで喋る。MCPの`say`とも連携可）
+  （wav+jsonを置くと表情つきで喋る。MCPの`say`とも連携可。
+  audioなしのjsonなら声を出さず表情だけ一定時間出す＝MCPの`express`）
+- `YuunaGazeBridge.cs` — Bridge/フォルダの`look_*.json`監視で目と首をpan/tilt方向へ
+  追従させる（MCPの`look`と連携。外部カメラの向きに合わせる用途）
 - `YuunaMascotWindow.cs` — ビルド版を枠なし・最前面・背景透過の
   デスクトップマスコットにする（Windows専用）
 

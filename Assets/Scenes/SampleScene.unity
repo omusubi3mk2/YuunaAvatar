@@ -371,6 +371,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::YuunaSayBridge
   bridgeFolder: D:\sandbox\ClaudeCode\my_projects\YuunaAvatar\Bridge
+--- !u!114 &927804237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927804223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618b2d80f13afbb48925cc8d26413619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::YuunaGazeBridge
+  bridgeFolder: D:\sandbox\ClaudeCode\my_projects\YuunaAvatar\Bridge
+  maxNeckYaw: 40
+  maxNeckPitch: 20
+  neckYawRatio: 0.6
+  neckPitchRatio: 0.5
+  maxEyeYaw: 25
+  maxEyePitch: 15
+  invertPan: 0
+  invertTilt: 0
+  turnSpeed: 6
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,7 +640,40 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -1728013695380148634, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 927804232}
+    - targetCorrespondingSourceObject: {fileID: -1728013695380148634, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 927804237}
+    - targetCorrespondingSourceObject: {fileID: 7146093304296209568, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2131605225}
   m_SourcePrefab: {fileID: -3956505258223990651, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+--- !u!1 &2131605223 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7146093304296209568, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+  m_PrefabInstance: {fileID: 2131605222}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2131605225
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131605223}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

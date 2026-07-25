@@ -43,7 +43,7 @@ public class YuunaSayBridge : MonoBehaviour
         var dir = BridgeDir();
         while (true)
         {
-            string[] jsons = Directory.GetFiles(dir, "*.json");
+            string[] jsons = Directory.GetFiles(dir, "say_*.json");
             if (jsons.Length > 0)
             {
                 System.Array.Sort(jsons);

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 // 夕凪デスクトップマスコット化（2026-07-19 夕凪作）
@@ -73,7 +74,7 @@ public class YuunaMascotWindow : MonoBehaviour
         {
             cam.clearFlags = CameraClearFlags.SolidColor;
             cam.backgroundColor = new Color(0f, 0f, 0f, 0f);
-            FrameBustUp(cam);
+            StartCoroutine(FrameBustUpWhenReady(cam));
         }
 
         var hWnd = GetActiveWindow();
@@ -96,13 +97,42 @@ public class YuunaMascotWindow : MonoBehaviour
                   + " at " + x + "," + y);
     }
 
+    // VRMのHumanoidセットアップがAfterSceneLoad直後には間に合わないことがあるため、
+    // isHumanなAnimatorが見つかるまで数フレーム待ってからフレーミングする。
+    IEnumerator FrameBustUpWhenReady(Camera cam)
+    {
+        Animator animator = null;
+        float timeoutAt = Time.unscaledTime + 3f;
+        while (Time.unscaledTime < timeoutAt)
+        {
+            // シーンにAnimatorが複数ある場合があるので、最初に見つかったものではなく
+            // isHumanなものを明示的に選ぶ（VRM本体以外のAnimatorに邪魔されないように）
+            foreach (var candidate in FindObjectsByType<Animator>(FindObjectsSortMode.None))
+            {
+                if (candidate.isHuman)
+                {
+                    animator = candidate;
+                    break;
+                }
+            }
+            if (animator != null) break;
+            yield return null;
+        }
+
+        if (animator == null)
+        {
+            Debug.LogWarning("[YuunaMascot] HumanoidのAnimatorが見つからないままタイムアウトした。バストアップ化をスキップする。");
+            yield break;
+        }
+
+        FrameBustUp(cam, animator);
+    }
+
     // マスコット時はバストアップ（胸から上）でフレーミングする。
     // exeと同じフォルダの mascot_camera.txt に距離（例: 0.8）を書けば
     // ビルドし直さずに寄り具合を変えられる（小さいほど顔が大きい）。
-    static void FrameBustUp(Camera cam)
+    static void FrameBustUp(Camera cam, Animator animator)
     {
-        var animator = FindFirstObjectByType<Animator>();
-        if (animator == null || !animator.isHuman) return;
         var head = animator.GetBoneTransform(HumanBodyBones.Head);
         if (head == null) return;
         var chest = animator.GetBoneTransform(HumanBodyBones.Chest);
