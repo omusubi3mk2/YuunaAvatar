@@ -77,6 +77,11 @@ public class YuunaSayBridge : MonoBehaviour
                         }
                     }
                 }
+                else if (msg != null && !string.IsNullOrEmpty(msg.emotion))
+                {
+                    // audioなし: 声を出さず表情だけ一定時間見せる
+                    yield return ExpressOnly(msg.emotion, msg.duration > 0f ? msg.duration : 1.5f);
+                }
                 TryDelete(jsonPath);
             }
             yield return new WaitForSeconds(0.25f);
@@ -103,6 +108,14 @@ public class YuunaSayBridge : MonoBehaviour
             yield return new WaitForSeconds(0.4f);
             ClearEmotion();
         }
+    }
+
+    IEnumerator ExpressOnly(string emotion, float duration)
+    {
+        SetEmotion(emotion);
+        Debug.Log("[YuunaBridge] 表情のみ: " + emotion + " (" + duration + "s)");
+        yield return new WaitForSeconds(duration);
+        ClearEmotion();
     }
 
     void SetEmotion(string emotion)
@@ -152,5 +165,6 @@ public class YuunaSayBridge : MonoBehaviour
     {
         public string audio;
         public string emotion;
+        public float duration; // audioなしメッセージ専用。省略時は1.5秒
     }
 }
