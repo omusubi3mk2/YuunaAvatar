@@ -393,6 +393,26 @@ MonoBehaviour:
   invertPan: 0
   invertTilt: 0
   turnSpeed: 6
+--- !u!114 &927804238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927804223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6bcc1b6fdabac445bffbcdfc102d168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::YuunaIdleSway
+  breatheAmplitude: 1.5
+  breatheSpeed: 0.3
+  swayAmplitude: 2
+  swaySpeed: 0.15
+  talkingMultiplier: 2.5
+  headBobAmplitude: 4
+  headBobSensitivity: 13
+  headBobSmoothing: 10
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +663,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -1728013695380148634, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 927804237}
+    - targetCorrespondingSourceObject: {fileID: -1728013695380148634, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 927804238}
     - targetCorrespondingSourceObject: {fileID: 7146093304296209568, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2131605225}
