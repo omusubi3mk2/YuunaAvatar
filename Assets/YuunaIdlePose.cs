@@ -43,6 +43,9 @@ public class YuunaIdlePose : MonoBehaviour
     void LateUpdate()
     {
         if (animator == null) return;
+        // Waveなど、AnimatorControllerが腕を駆動しているジェスチャー中は
+        // 固定ポーズへの引き戻しを止める（YuunaGestureBridge参照）
+        if (YuunaGestureBridge.AnimatorGestureActive) return;
         Apply(HumanBodyBones.LeftUpperArm, -armDownAngle);
         Apply(HumanBodyBones.RightUpperArm, armDownAngle);
         Apply(HumanBodyBones.LeftLowerArm, -elbowBend);

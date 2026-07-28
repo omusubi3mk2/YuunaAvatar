@@ -24,7 +24,8 @@ public class YuunaGestureBridge : MonoBehaviour
     [Range(1f, 10f)] public float blendSpeed = 4f;
 
     Animator animator;
-    Transform rightUpperArm, rightLowerArm, head;
+    Transform rightUpperArm, rightLowerArm, head, hips;
+    float restHipsY;
 
     // ジェスチャー開始の瞬間の実際の姿勢(IdlePose/IdleSway適用後)を基準にする。
     // Startで一度だけ取れるT-poseの生値を基準にすると、非アクティブ時に
@@ -49,9 +50,15 @@ public class YuunaGestureBridge : MonoBehaviour
             return;
         }
 
+        // マスコットはその場に立っているだけでルートモーションは不要。
+        // Waveなど重心移動の大きいMixamoクリップがバストアップ画角でフレームアウトする対策
+        // （TODO.md「Wave発火時、夕凪が上に移動して画面外に消える」）。
+        animator.applyRootMotion = false;
+
         rightUpperArm = animator.GetBoneTransform(HumanBodyBones.RightUpperArm);
         rightLowerArm = animator.GetBoneTransform(HumanBodyBones.RightLowerArm);
         head = animator.GetBoneTransform(HumanBodyBones.Head);
+        hips = animator.GetBoneTransform(HumanBodyBones.Hips);
 
         var dir = BridgeDir();
         Directory.CreateDirectory(dir);
@@ -94,24 +101,75 @@ public class YuunaGestureBridge : MonoBehaviour
         }
     }
 
+    // Mixamoクリップなど、AnimatorController側のTriggerに任せるジェスチャー名。
+    // ここに載っている名前は毎フレームのボーン直接操作をせず、Animatorの
+    // 通常評価（Update）にそのまま任せる。LateUpdateでは上書きしない。
+    static readonly System.Collections.Generic.HashSet<string> AnimatorDrivenGestures =
+        new System.Collections.Generic.HashSet<string> { "wave" };
+
+    // YuunaIdlePoseへの合図。Animator駆動のジェスチャー中は、IdlePoseが
+    // 毎フレーム腕を「下ろした姿勢」に固定する処理をスキップしてもらう
+    // （このスクリプトは実行順序100でIdlePose(順序0)より後に走るため、
+    // 実際に反映されるのは1フレーム遅れるが体感では気にならない）。
+    public static bool AnimatorGestureActive { get; private set; }
+
     void LateUpdate()
     {
+        // Startで一度falseにしても、VRMの非同期初期化など何か別の経路で
+        // trueへ戻される可能性があるため、念のため毎フレーム強制する。
+        animator.applyRootMotion = false;
+
         bool active = !string.IsNullOrEmpty(currentGesture) && Time.time < gestureEndTime;
+        AnimatorGestureActive = active && AnimatorDrivenGestures.Contains(currentGesture);
 
         if (active && !wasActive)
         {
-            // 立ち上がりの瞬間だけ、その時点の実際の姿勢を基準として記録し、
-            // ブレンド進捗もそこからスタートする
-            if (rightUpperArm != null) restUpperArm = blendUpperArm = rightUpperArm.localRotation;
-            if (rightLowerArm != null) restLowerArm = blendLowerArm = rightLowerArm.localRotation;
-            if (head != null) restHead = blendHead = head.localRotation;
+            if (AnimatorDrivenGestures.Contains(currentGesture))
+            {
+                // Triggerは一度だけ発火。あとの再生・待機時間経過での復帰は
+                // AnimatorController側のTransition（Has Exit Time）に任せる
+                animator.SetTrigger(currentGesture == "wave" ? "Wave" : currentGesture);
+                // 発火直前(まだ遷移前)の、今立っている実際の高さを基準に記録する
+                if (hips != null) restHipsY = hips.position.y;
+            }
+            else
+            {
+                // 立ち上がりの瞬間だけ、その時点の実際の姿勢を基準として記録し、
+                // ブレンド進捗もそこからスタートする
+                if (rightUpperArm != null) restUpperArm = blendUpperArm = rightUpperArm.localRotation;
+                if (rightLowerArm != null) restLowerArm = blendLowerArm = rightLowerArm.localRotation;
+                if (head != null) restHead = blendHead = head.localRotation;
+            }
         }
         wasActive = active;
+
+        // Hipsの高さ固定は「Wave」の実際のAnimator再生状況（本体のクリップ長・
+        // Exit Timeの遷移）で判定する。外部のduration(既定3秒)で先に区切ると、
+        // クリップ本体がまだ再生中/遷移中でも固定が先に切れてしまい、
+        // 「手を振った後にジャンプする」形で症状が残ってしまうため。
+        if (hips != null)
+        {
+            var stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            bool waveStatePlaying = stateInfo.IsName("Wave")
+                || (animator.IsInTransition(0) && animator.GetNextAnimatorStateInfo(0).IsName("Wave"));
+            if (waveStatePlaying)
+            {
+                var p = hips.position;
+                p.y = restHipsY;
+                hips.position = p;
+            }
+        }
 
         if (!active)
         {
             // 非アクティブ時はボーンに一切触らない。IdlePose/IdleSwayに任せる
             currentGesture = null;
+            return;
+        }
+
+        if (AnimatorDrivenGestures.Contains(currentGesture))
+        {
+            // Animatorが全身のボーンを駆動する。Hipsの高さ固定は上ですでに処理済み
             return;
         }
 

@@ -562,6 +562,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yuuna
       objectReference: {fileID: 0}
+    - target: {fileID: -1547216051906115370, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_dragForce
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -1547216051906115370, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_stiffnessForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2195949352001625342, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_dragForce
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2195949352001625342, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_stiffnessForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2675317581434537637, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_dragForce
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2675317581434537637, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_stiffnessForce
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2953604236389334553, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
       propertyPath: m_DirtyAABB
       value: 0
@@ -590,6 +614,50 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 0.16755691
       objectReference: {fileID: 0}
+    - target: {fileID: 3383194724776740269, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_dragForce
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383194724776740269, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_stiffnessForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3527887663171491620, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_dragForce
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3527887663171491620, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_stiffnessForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3874412892632681281, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_dragForce
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3874412892632681281, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_stiffnessForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419220304788213067, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_dragForce
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419220304788213067, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_stiffnessForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4614143614154128406, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_dragForce
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4614143614154128406, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_stiffnessForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4870552773557632513, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 20514026d9bc8514a85f3b83ad02914b, type: 2}
     - target: {fileID: 5159078012444724336, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.60054
@@ -630,6 +698,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6115043219128161501, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_dragForce
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115043219128161501, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_stiffnessForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6461025572736097116, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_dragForce
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6461025572736097116, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_stiffnessForce
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7140606858727328969, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
       propertyPath: m_DirtyAABB
       value: 0
@@ -657,6 +741,14 @@ PrefabInstance:
     - target: {fileID: 7140606858727328969, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
       propertyPath: m_AABB.m_Extent.z
       value: 0.07368229
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941310074961852222, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_dragForce
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941310074961852222, guid: 1abafd8283efdb548a9f960a8a20ec4f, type: 3}
+      propertyPath: m_stiffnessForce
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -721,6 +813,6 @@ Animator:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 963194228}
   - {fileID: 705507995}
+  - {fileID: 963194228}
   - {fileID: 2131605222}

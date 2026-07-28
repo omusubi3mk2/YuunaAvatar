@@ -125,6 +125,11 @@ public class YuunaMascotWindow : MonoBehaviour
             yield break;
         }
 
+        // TEMP DEBUG (2026-07-27): 見つかった直後だとAnimatorがまだTポーズ相当で
+        // 実際のIdleポーズに評価される前の可能性があるので、数フレーム待ってから
+        // ボーン位置を読む。原因が分かったら妥当な待機に整理すること。
+        for (int i = 0; i < 5; i++) yield return null;
+
         FrameBustUp(cam, animator);
     }
 
@@ -140,12 +145,26 @@ public class YuunaMascotWindow : MonoBehaviour
             ? Vector3.Lerp(chest.position, head.position, 0.5f)
             : head.position;
 
-        float distance = LoadConfigValue("mascot_camera.txt", 1.0f, 0.3f, 3.0f);
+        // TEMP DEBUG (2026-07-27): 原因調査のため上限を20まで広げてる。
+        // 原因が分かったら元の 0.3f, 3.0f に戻すこと。
+        float distance = LoadConfigValue("mascot_camera.txt", 1.0f, 0.3f, 20.0f);
         var fwd = animator.transform.forward;
         cam.fieldOfView = 30f;
         cam.transform.position = lookAt + fwd * distance;
         cam.transform.rotation = Quaternion.LookRotation(-fwd, Vector3.up);
         Debug.Log("[YuunaMascot] バストアップ距離 " + distance);
+        // TEMP DEBUG (2026-07-27): カメラが変な場所を向く不具合の原因調査用ログ。
+        // 原因が分かったら削除すること。
+        Debug.Log("[YuunaMascotDebug] animator.transform pos=" + animator.transform.position
+                  + " lossyScale=" + animator.transform.lossyScale
+                  + " rotation.eulerAngles=" + animator.transform.rotation.eulerAngles);
+        Debug.Log("[YuunaMascotDebug] head.pos=" + head.position
+                  + " chest.pos=" + (chest != null ? chest.position.ToString() : "null")
+                  + " lookAt=" + lookAt);
+        Debug.Log("[YuunaMascotDebug] fwd=" + fwd
+                  + " cam.pos=" + cam.transform.position
+                  + " cam.rot.euler=" + cam.transform.rotation.eulerAngles
+                  + " cam.nearClipPlane=" + cam.nearClipPlane);
     }
 
     static float LoadHeightRatio()
