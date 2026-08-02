@@ -37,6 +37,7 @@ public class YuunaGazeBridge : MonoBehaviour
     Animator animator;
     Transform neck;
     Quaternion neckInitialLocalRotation;
+    Quaternion currentNeckLocalRotation;
     float targetPan;
     float targetTilt;
 
@@ -51,6 +52,7 @@ public class YuunaGazeBridge : MonoBehaviour
         if (neck != null)
         {
             neckInitialLocalRotation = neck.localRotation;
+            currentNeckLocalRotation = neckInitialLocalRotation;
         }
         else
         {
@@ -123,7 +125,12 @@ public class YuunaGazeBridge : MonoBehaviour
             var neckPitch = Mathf.Clamp(targetTilt * neckPitchRatio, -maxNeckPitch, maxNeckPitch);
             // Neckボーンは正のX回転で見下げる向きになるため、見上げ(tilt正)は符号を反転する
             var targetRotation = neckInitialLocalRotation * Quaternion.Euler(-neckPitch, neckYaw, 0f);
-            neck.localRotation = Quaternion.Slerp(neck.localRotation, targetRotation, Time.deltaTime * turnSpeed);
+            // Vrm10Instance.LateUpdate()がRuntime.Process()で毎フレームneckをリセットしてから
+            // このLateUpdateが動くため、neck.localRotationを起点にSlerpすると進んだ分が
+            // 毎フレーム失われて「回そうとして回せない」状態になる。自前で保持した回転を
+            // 起点にして、最後にTransformへ書き戻す。
+            currentNeckLocalRotation = Quaternion.Slerp(currentNeckLocalRotation, targetRotation, Time.deltaTime * turnSpeed);
+            neck.localRotation = currentNeckLocalRotation;
         }
     }
 
